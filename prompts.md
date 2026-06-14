@@ -6,28 +6,70 @@ Record the exact prompts you used and your verdict here. This file is graded.
 
 ### Zero-shot prompt
 
-```
-TODO: paste the exact zero-shot prompt you used
+```text
+Classify the following support ticket into exactly one label:
+
+Labels:
+- billing
+- bug
+- feature_request
+- other
+
+Return ONLY the label.
+
+Ticket:
+{text}
 ```
 
 ### Few-shot prompt
 
-```
-TODO: paste the exact few-shot prompt (including the 2–3 examples)
+```text
+Classify support tickets into one label.
+
+Examples:
+
+Ticket: "I was charged twice for my subscription."
+Label: billing
+
+Ticket: "The app crashes whenever I upload a photo."
+Label: bug
+
+Ticket: "Please add dark mode."
+Label: feature_request
+
+Ticket: "How do I change my profile picture?"
+Label: other
+
+Now classify this ticket.
+
+Ticket:
+{text}
+
+Return ONLY the label.
 ```
 
 ### Chain-of-thought / decomposition prompt
 
-```
-TODO: paste the exact CoT prompt you used
+```text
+You are classifying customer support tickets.
+
+Think step by step about what category best fits the ticket.
+
+Then return ONLY one of these labels:
+
+billing
+bug
+feature_request
+other
+
+Ticket:
+{text}
 ```
 
 ### Verdict (3–4 sentences)
 
-> TODO: Which pattern won? Where did each fail? Tie your answer to the
-> ticket categories (billing / bug / feature_request / other).
+> All three prompting patterns correctly classified the provided support tickets. Zero-shot prompting was sufficient for this task because the categories were simple and clearly defined. Few-shot prompting was slightly more consistent by providing examples for each category. Chain-of-thought did not improve the final classifications and likely used more tokens, making it less efficient for this straightforward classification task.
 
 ## Task 3 — Structured output notes
 
-> TODO: One or two sentences on how reliably each model (Gemini vs local
-> Ollama) produced valid JSON, and what you did when it didn't.
+> Both Gemini and the local Ollama model reliably returned valid JSON after enabling structured output and using a low temperature. Gemini classified all tickets correctly, while Ollama misclassified a few tickets and produced less consistent confidence scores, but its JSON format remained valid throughout the test.
